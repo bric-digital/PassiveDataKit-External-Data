@@ -416,7 +416,7 @@ def visualization(source, generator):
 
     return render_to_string('pdk_generic_viz_template.html', context)
 
-def data_type_category_for_identifier(identifier):
+def data_type_category_for_identifier(identifier): # pylint: disable=invalid-name
     for observed in identifier['observed']: # pylint: disable=too-many-nested-blocks
         if observed.startswith('pdk-external-'):
             tokens = observed.split('-')
