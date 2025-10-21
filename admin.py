@@ -11,7 +11,7 @@ if django.get_version() < '5':
 else:
     from django.contrib.gis.admin import GISModelAdmin # pylint: disable=no-name-in-module
 
-from .models import ExternalDataSource, ExternalDataRequest, ExternalDataRequestFile
+from .models import ExternalDataSource, ExternalDataRequest, ExternalDataRequestFile # pylint: disable=wrong-import-position
 
 @admin.register(ExternalDataSource)
 class ExternalDataSourceAdmin(GISModelAdmin):
