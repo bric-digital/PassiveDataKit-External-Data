@@ -346,7 +346,7 @@ def pdk_external_request(request):
 
     mail_context = {
         'requester_name': request.user.get_full_name(),
-        'request_link': settings.SITE_URL + reverse('pdk_external_request_data_with_params', kwargs={'token': 'abc12345'})
+        'request_link': settings.SITE_URL + reverse('pdk_external_request_data_with_params', kwargs={'token': urllib.parse.quote(token)})
     }
 
     context['request_email_subject'] = render_to_string('email/pdk_external_request_data_request_email_subject.txt', context=mail_context)
