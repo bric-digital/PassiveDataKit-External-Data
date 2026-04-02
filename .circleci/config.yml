@@ -49,9 +49,9 @@ jobs:
             cp passive_data_kit_external_data/circle_settings.py pdk/settings.py
             cp passive_data_kit_external_data/.pylintrc .
             git clone https://github.com/audacious-software/PassiveDataKit-Django.git passive_data_kit
-            pylint passive_data_kit_external_data
             pip install -r passive_data_kit/requirements.txt --progress-bar off
             pip install -r passive_data_kit_external_data/requirements.txt --progress-bar off
+            pylint passive_data_kit_external_data
             python manage.py migrate
             python manage.py test
             pylint passive_data_kit
@@ -100,9 +100,9 @@ jobs:
             cp passive_data_kit_external_data/circle_settings.py pdk/settings.py
             cp passive_data_kit_external_data/.pylintrc .
             git clone https://github.com/audacious-software/PassiveDataKit-Django.git passive_data_kit
-            pylint passive_data_kit_external_data
             pip install -r passive_data_kit/requirements.txt --progress-bar off
             pip install -r passive_data_kit_external_data/requirements.txt --progress-bar off
+            pylint passive_data_kit_external_data
             python manage.py migrate
             python manage.py test
             pylint passive_data_kit
@@ -151,9 +151,9 @@ jobs:
             cp passive_data_kit_external_data/circle_settings.py pdk/settings.py
             cp passive_data_kit_external_data/.pylintrc .
             git clone https://github.com/audacious-software/PassiveDataKit-Django.git passive_data_kit
-            pylint passive_data_kit_external_data
             pip install -r passive_data_kit/requirements.txt --progress-bar off
             pip install -r passive_data_kit_external_data/requirements.txt --progress-bar off
+            pylint passive_data_kit_external_data
             python manage.py migrate
             python manage.py test
             pylint passive_data_kit
@@ -202,9 +202,9 @@ jobs:
             cp passive_data_kit_external_data/circle_settings.py pdk/settings.py
             cp passive_data_kit_external_data/.pylintrc .
             git clone https://github.com/audacious-software/PassiveDataKit-Django.git passive_data_kit
-            pylint passive_data_kit_external_data
             pip install -r passive_data_kit/requirements.txt --progress-bar off
             pip install -r passive_data_kit_external_data/requirements.txt --progress-bar off
+            pylint passive_data_kit_external_data
             python manage.py migrate
             python manage.py test
             pylint passive_data_kit
@@ -253,9 +253,9 @@ jobs:
             cp passive_data_kit_external_data/circle_settings.py pdk/settings.py
             cp passive_data_kit_external_data/.pylintrc .
             git clone https://github.com/audacious-software/PassiveDataKit-Django.git passive_data_kit
-            pylint passive_data_kit_external_data
             pip install -r passive_data_kit/requirements.txt --progress-bar off
             pip install -r passive_data_kit_external_data/requirements.txt --progress-bar off
+            pylint passive_data_kit_external_data
             python manage.py migrate
             python manage.py test
             pylint passive_data_kit
@@ -304,9 +304,9 @@ jobs:
             cp passive_data_kit_external_data/circle_settings.py pdk/settings.py
             cp passive_data_kit_external_data/.pylintrc .
             git clone https://github.com/audacious-software/PassiveDataKit-Django.git passive_data_kit
-            pylint passive_data_kit_external_data
             pip install -r passive_data_kit/requirements.txt --progress-bar off
             pip install -r passive_data_kit_external_data/requirements.txt --progress-bar off
+            pylint passive_data_kit_external_data
             python manage.py migrate
             python manage.py test
             pylint passive_data_kit
@@ -355,9 +355,9 @@ jobs:
             cp passive_data_kit_external_data/circle_settings.py pdk/settings.py
             cp passive_data_kit_external_data/.pylintrc .
             git clone https://github.com/audacious-software/PassiveDataKit-Django.git passive_data_kit
-            pylint passive_data_kit_external_data
             pip install -r passive_data_kit/requirements.txt --progress-bar off
             pip install -r passive_data_kit_external_data/requirements.txt --progress-bar off
+            pylint passive_data_kit_external_data
             python manage.py migrate
             python manage.py test
             pylint passive_data_kit
