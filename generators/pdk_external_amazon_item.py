@@ -11,8 +11,6 @@ from zipfile import ZipFile
 import arrow
 import pytz
 
-from past.utils import old_div
-
 from django.conf import settings
 from django.utils.text import slugify
 
@@ -24,7 +22,7 @@ def generator_name(identifier): # pylint: disable=unused-argument
 
 def compile_report(generator, sources, data_start=None, data_end=None, date_type='created'): # pylint: disable=too-many-locals, too-many-branches, too-many-statements
     now = arrow.get()
-    filename = tempfile.gettempdir() + os.path.sep + 'pdk_export_' + str(now.timestamp) + str(old_div(now.microsecond, 1e6)) + '.zip'
+    filename = tempfile.gettempdir() + os.path.sep + 'pdk_export_' + str(now.timestamp) + str(now.microsecond // 1e6) + '.zip'
 
     with ZipFile(filename, 'w') as export_file:
         seen_sources = []
