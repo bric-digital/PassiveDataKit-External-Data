@@ -40,7 +40,7 @@ def import_external_data(data_source, request_identifier, path):
 
         return succeeded
     except ImportError:
-        pass
+        traceback.print_exc()
     except AttributeError:
         pass
 
@@ -416,9 +416,80 @@ def visualization(source, generator):
 
     return render_to_string('pdk_generic_viz_template.html', context)
 
+def data_type_category_for_identifier(identifier): # pylint: disable=invalid-name
+    for observed in identifier['observed']: # pylint: disable=too-many-nested-blocks
+        if observed.startswith('pdk-external-'):
+            tokens = observed.split('-')
+
+            if len(tokens) > 2:
+                for app in settings.INSTALLED_APPS:
+                    try:
+                        importer = importlib.import_module(app + '.importers.' + tokens[2])
+
+                        name = importer.data_type_category(observed)
+
+                        if name is not None:
+                            return name
+
+                    except ImportError:
+                        pass
+                    except AttributeError:
+                        pass
+
+    return None
+
+def data_type_name(definition):
+    for observed in definition['passive-data-metadata.generator-id']['observed']: # pylint: disable=too-many-nested-blocks
+        if observed.startswith('pdk-external-'):
+            tokens = observed.split('-')
+
+            if len(tokens) > 2:
+                for app in settings.INSTALLED_APPS:
+                    try:
+                        importer = importlib.import_module(app + '.importers.' + tokens[2])
+
+                        name = importer.data_type_name(definition)
+
+                        if name is not None:
+                            return name
+
+                    except ImportError:
+                        pass
+                    except AttributeError:
+                        pass
+
+        if observed.startswith('pdk-external-engagement-'):
+            importer = importlib.import_module('passive_data_kit_external_data.importers.engagement')
+
+            name = importer.data_type_name(definition)
+
+            if name is not None:
+                return name
+
+    return None
+
+def data_type_category(definition):
+    for observed in definition['passive-data-metadata.generator-id']['observed']: # pylint: disable=too-many-nested-blocks
+        if observed.startswith('pdk-external-'):
+            tokens = observed.split('-')
+
+            if len(tokens) > 2:
+                for app in settings.INSTALLED_APPS:
+                    try:
+                        importer = importlib.import_module(app + '.importers.' + tokens[2])
+
+                        category = importer.data_type_category(observed)
+
+                        if category is not None:
+                            return category
+                    except ImportError:
+                        pass
+                    except AttributeError:
+                        pass
+
+    return None
+
 def update_data_type_definition(definition, override_existing=False): # pylint: disable=too-many-branches
-    print('in external_data: %s' % definition)
-    
     for observed in definition['passive-data-metadata.generator-id']['observed']:
         if observed.startswith('pdk-external-'):
             tokens = observed.split('-')
@@ -501,8 +572,6 @@ def pdk_data_point_query(request): # pylint: disable=too-many-locals, too-many-b
                     if (field in ('generator_identifier',)) is False:
                         processed_filter[field] = value
 
-                print('INC: %s' % processed_filter)
-
                 query = query.filter(**processed_filter)
 
             for exclude in excludes:
@@ -522,8 +591,6 @@ def pdk_data_point_query(request): # pylint: disable=too-many-locals, too-many-b
 
                     if (field in ('generator_identifier',)) is False:
                         processed_exclude[field] = value
-
-                print('EXC: %s' % processed_filter)
 
                 query = query.exclude(**processed_exclude)
 

@@ -1,11 +1,35 @@
 # pylint: disable=line-too-long
 
+<<<<<<< HEAD
 def update_data_type_definition(definition, override_existing=False):
+=======
+import importlib
+
+from django.conf import settings
+
+def update_data_type_definition(definition, override_existing=False): # pylint: disable=unused-argument
+>>>>>>> c9104926a0449b1cf5b86086ec5aaaec8218832d
     if 'type' in definition:
         definition['type']['pdk_variable_name'] = 'Engagement type'
         definition['type']['pdk_variable_description'] = 'Type of the engagement.'
         definition['type']['pdk_codebook_group'] = 'Passive Data Kit: External Data'
         definition['type']['pdk_codebook_order'] = 1
+
+        definition['type']['pdk_codebook_observed_descriptions'] = {
+            'post': 'Posted content or media to share with a limited or open audience of others.',
+            'reaction': 'Reacted to content in the form of likes, loves, or other sentiments (emojis).',
+            'comment': 'Added a comment to content posted by themselves or others.',
+            'video': 'Viewed or shared video content.',
+            'group': 'Viewed or interacted with a group page or other community destination.',
+            'profile': 'Viewed or interacted with their own or another\'s profile page.',
+            'advertising': 'Exposed to an advertisement.',
+            'shopping': 'Exposed to an advertisement.',
+            'link': 'Viewed or interacted with their own or another\'s link or article.',
+            'event': 'Viewed or interacted with their own or another\'s event page.',
+            'page': 'Viewed or interacted with their own or another\'s page.',
+            'search': 'Searched for social media content.',
+            'message': 'Sent or received a private direct message to another or a group.'
+        }
 
     if 'incoming_engagement' in definition:
         definition['incoming_engagement']['pdk_variable_name'] = 'Incoming engagement'
@@ -42,11 +66,9 @@ def update_data_type_definition(definition, override_existing=False):
                 if max_value is None:
                     max_value = numeric_value
 
-                if numeric_value < min_value:
-                    min_value = numeric_value
+                min_value = min(min_value, numeric_value)
 
-                if numeric_value > max_value:
-                    max_value = numeric_value
+                max_value = max(max_value, numeric_value)
 
             del definition['duration']['observed']
 
@@ -55,6 +77,7 @@ def update_data_type_definition(definition, override_existing=False):
         definition['duration']['pdk_codebook_order'] = 4
 
     if 'direction' in definition:
+<<<<<<< HEAD
         definition['duration']['pdk_variable_name'] = 'Engagement direction'
         definition['duration']['pdk_variable_description'] = 'Direction of the engagement. *outgoing* indicates that the user is initiating and maintaining engagement with others, while *incoming* indicates that others are initiating and maintaining engagement with the user.'
         definition['duration']['pdk_codebook_group'] = 'Passive Data Kit: External Data (Deprecated)'
@@ -65,3 +88,51 @@ def update_data_type_definition(definition, override_existing=False):
         definition['duration']['pdk_codebook_group'] = 'Passive Data Kit: External Data (Deprecated)'
         
     print('Done updating fb')
+=======
+        definition['direction']['pdk_variable_name'] = 'Engagement direction'
+        definition['direction']['pdk_variable_description'] = 'Direction of the engagement. *outgoing* indicates that the user is initiating and maintaining engagement with others, while *incoming* indicates that others are initiating and maintaining engagement with the user.'
+        definition['direction']['pdk_codebook_group'] = 'Passive Data Kit: External Data (Deprecated)'
+        definition['direction']['pdk_codebook_deprecated'] = True
+
+    if 'engagement_direction' in definition:
+        definition['engagement_direction']['pdk_variable_name'] = 'Engagement direction'
+        definition['engagement_direction']['pdk_variable_description'] = 'Direction of the engagement. *outgoing* indicates that the user is initiating and maintaining engagement with others, while *incoming* indicates that others are initiating and maintaining engagement with the user.'
+        definition['engagement_direction']['pdk_codebook_group'] = 'Passive Data Kit: External Data (Deprecated)'
+        definition['engagement_direction']['pdk_codebook_deprecated'] = True
+
+def data_type_name(definition):
+    for observed in definition['passive-data-metadata.generator-id']['observed']:
+        if observed.startswith('pdk-external-engagement-'):
+            tokens = observed.split('-')
+
+            if len(tokens) > 3:
+                for app in settings.INSTALLED_APPS:
+                    try:
+                        importer = importlib.import_module(app + '.importers.' + tokens[3])
+
+                        return importer.data_type_name(definition)
+                    except ImportError:
+                        pass
+                    except AttributeError:
+                        pass
+
+    return None
+
+def data_type_category(definition):
+    for observed in definition['passive-data-metadata.generator-id']['observed']:
+        if observed.startswith('pdk-external-engagement-'):
+            tokens = observed.split('-')
+
+            if len(tokens) > 3:
+                for app in settings.INSTALLED_APPS:
+                    try:
+                        importer = importlib.import_module(app + '.importers.' + tokens[3])
+
+                        return importer.data_type_category(definition)
+                    except ImportError:
+                        pass
+                    except AttributeError:
+                        pass
+
+    return None
+>>>>>>> c9104926a0449b1cf5b86086ec5aaaec8218832d
