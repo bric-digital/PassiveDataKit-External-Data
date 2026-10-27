@@ -416,7 +416,9 @@ def visualization(source, generator):
 
     return render_to_string('pdk_generic_viz_template.html', context)
 
-def update_data_type_definition(definition): # pylint: disable=too-many-branches
+def update_data_type_definition(definition, override_existing=False): # pylint: disable=too-many-branches
+    print('in external_data: %s' % definition)
+    
     for observed in definition['passive-data-metadata.generator-id']['observed']:
         if observed.startswith('pdk-external-'):
             tokens = observed.split('-')
@@ -426,16 +428,18 @@ def update_data_type_definition(definition): # pylint: disable=too-many-branches
                     try:
                         importer = importlib.import_module(app + '.importers.' + tokens[2])
 
-                        importer.update_data_type_definition(definition)
+                        importer.update_data_type_definition(definition, override_existing=override_existing)
                     except ImportError:
                         pass
                     except AttributeError:
                         pass
 
         if observed.startswith('pdk-external-engagement-'):
+            print('in external_data -- %s' % observed)
+            
             importer = importlib.import_module('passive_data_kit_external_data.importers.engagement')
 
-            importer.update_data_type_definition(definition)
+            importer.update_data_type_definition(definition, override_existing=override_existing)
 
     for app in settings.INSTALLED_APPS:
         try:

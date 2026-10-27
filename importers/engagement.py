@@ -1,6 +1,6 @@
 # pylint: disable=line-too-long
 
-def update_data_type_definition(definition):
+def update_data_type_definition(definition, override_existing=False):
     if 'type' in definition:
         definition['type']['pdk_variable_name'] = 'Engagement type'
         definition['type']['pdk_variable_description'] = 'Type of the engagement.'
@@ -53,3 +53,15 @@ def update_data_type_definition(definition):
             definition['duration']['range'] = [min_value, max_value]
 
         definition['duration']['pdk_codebook_order'] = 4
+
+    if 'direction' in definition:
+        definition['duration']['pdk_variable_name'] = 'Engagement direction'
+        definition['duration']['pdk_variable_description'] = 'Direction of the engagement. *outgoing* indicates that the user is initiating and maintaining engagement with others, while *incoming* indicates that others are initiating and maintaining engagement with the user.'
+        definition['duration']['pdk_codebook_group'] = 'Passive Data Kit: External Data (Deprecated)'
+
+    if 'engagement_direction' in definition:
+        definition['duration']['pdk_variable_name'] = 'Engagement direction'
+        definition['duration']['pdk_variable_description'] = 'Direction of the engagement. *outgoing* indicates that the user is initiating and maintaining engagement with others, while *incoming* indicates that others are initiating and maintaining engagement with the user.'
+        definition['duration']['pdk_codebook_group'] = 'Passive Data Kit: External Data (Deprecated)'
+        
+    print('Done updating fb')
