@@ -507,7 +507,7 @@ def update_data_type_definition(definition, override_existing=False): # pylint: 
 
         if observed.startswith('pdk-external-engagement-'):
             print('in external_data -- %s' % observed)
-            
+
             importer = importlib.import_module('passive_data_kit_external_data.importers.engagement')
 
             importer.update_data_type_definition(definition, override_existing=override_existing)
