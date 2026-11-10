@@ -1,14 +1,10 @@
 # pylint: disable=line-too-long
 
-<<<<<<< HEAD
-def update_data_type_definition(definition, override_existing=False):
-=======
 import importlib
 
 from django.conf import settings
 
 def update_data_type_definition(definition, override_existing=False): # pylint: disable=unused-argument
->>>>>>> c9104926a0449b1cf5b86086ec5aaaec8218832d
     if 'type' in definition:
         definition['type']['pdk_variable_name'] = 'Engagement type'
         definition['type']['pdk_variable_description'] = 'Type of the engagement.'
@@ -77,18 +73,6 @@ def update_data_type_definition(definition, override_existing=False): # pylint: 
         definition['duration']['pdk_codebook_order'] = 4
 
     if 'direction' in definition:
-<<<<<<< HEAD
-        definition['duration']['pdk_variable_name'] = 'Engagement direction'
-        definition['duration']['pdk_variable_description'] = 'Direction of the engagement. *outgoing* indicates that the user is initiating and maintaining engagement with others, while *incoming* indicates that others are initiating and maintaining engagement with the user.'
-        definition['duration']['pdk_codebook_group'] = 'Passive Data Kit: External Data (Deprecated)'
-
-    if 'engagement_direction' in definition:
-        definition['duration']['pdk_variable_name'] = 'Engagement direction'
-        definition['duration']['pdk_variable_description'] = 'Direction of the engagement. *outgoing* indicates that the user is initiating and maintaining engagement with others, while *incoming* indicates that others are initiating and maintaining engagement with the user.'
-        definition['duration']['pdk_codebook_group'] = 'Passive Data Kit: External Data (Deprecated)'
-        
-    print('Done updating fb')
-=======
         definition['direction']['pdk_variable_name'] = 'Engagement direction'
         definition['direction']['pdk_variable_description'] = 'Direction of the engagement. *outgoing* indicates that the user is initiating and maintaining engagement with others, while *incoming* indicates that others are initiating and maintaining engagement with the user.'
         definition['direction']['pdk_codebook_group'] = 'Passive Data Kit: External Data (Deprecated)'
@@ -135,4 +119,3 @@ def data_type_category(definition):
                         pass
 
     return None
->>>>>>> c9104926a0449b1cf5b86086ec5aaaec8218832d
