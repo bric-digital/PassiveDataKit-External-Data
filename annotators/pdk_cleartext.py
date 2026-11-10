@@ -33,7 +33,7 @@ def fetch_annotation_fields():
     return ['pdk_language', 'pdk_language_confidence']
 
 
-def fetch_annotations(properties):
+def fetch_annotations(properties): # pylint: disable=too-many-branches
     if properties is None or isinstance(properties, dict) is False:
         return {}
 
@@ -42,7 +42,7 @@ def fetch_annotations(properties):
         'pdk_language_confidence': None,
     }
 
-    if 'pdk_language' in properties:
+    if 'pdk_language' in properties: # pylint: disable=too-many-nested-blocks
         annotations['pdk_language'] = properties['pdk_language']
     else:
         for key in properties:
@@ -63,7 +63,7 @@ def fetch_annotations(properties):
                         if list_language is not None and 'pdk_language' in list_language:
                             annotations['pdk_language']  = list_language['pdk_language']
 
-    if 'pdk_language_confidence' in properties:
+    if 'pdk_language_confidence' in properties: # pylint: disable=too-many-nested-blocks
         annotations['pdk_language_confidence'] = properties['pdk_language_confidence']
     else:
         for key in properties:
